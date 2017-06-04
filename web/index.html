@@ -68,6 +68,7 @@
         </div>
     </div>
     <hr>
+    <!--
     <div class="row">
         <div class="col-sm-2 entryActive ">
 
@@ -84,7 +85,7 @@
         <div class="col-sm-3 entryComment">
             # Comment
         </div>
-    </div>
+    </div>-->
 </div>
 
 
@@ -124,7 +125,60 @@
                     $.get("http://127.0.0.1:5002/commit");
                 }
             });
-        })
+        });
+        var addrEditing = false;
+        row.find(".entryAddr").on("dblclick", function() {
+            if(addrEditing) return;
+            addrEditing = true;
+            $(this).attr("contenteditable", true);
+            $(this).focus();
+            $(this).one("blur", function() {
+                $(this).removeAttr("contenteditable");
+                $.get("http://127.0.0.1:5002/editLine/"+line+"/addr/"+$(this).html(), function() {
+                    if(autoCommit) {
+                        $.get("http://127.0.0.1:5002/commit");
+                    }
+                    addrEditing = false;
+                });
+            })
+        });
+        var ipaddrEditing = false;
+        row.find(".entryIpaddr").on("dblclick", function() {
+            if(ipaddrEditing) return;
+            ipaddrEditing = true;
+            $(this).attr("contenteditable", true);
+            $(this).focus();
+            $(this).one("blur", function() {
+                $(this).removeAttr("contenteditable");
+                $.get("http://127.0.0.1:5002/editLine/"+line+"/ipaddr/"+$(this).html(), function() {
+                    if(autoCommit) {
+                        $.get("http://127.0.0.1:5002/commit");
+                    }
+                    ipaddrEditing = false;
+                });
+            })
+        });
+        var commentEditing = false;
+        row.find(".entryComment").on("dblclick", function() {
+            if(commentEditing) return;
+            commentEditing = true;
+            var $t = $(this);
+            $t.focus();
+            $(this).attr("contenteditable", true);
+            while($(this).html().charAt(0) == "#" || $(this).html().charAt(0) == " ") {
+                $(this).html($(this).html().substr(1));
+            }
+            $(this).one("blur", function() {
+                $(this).removeAttr("contenteditable");
+                $.get("http://127.0.0.1:5002/editLine/"+line+"/comment/"+$(this).html(), function() {
+                    if(autoCommit) {
+                        $.get("http://127.0.0.1:5002/commit");
+                    }
+                    $t.html("# "+ $t.html());
+                    commentEditing = false;
+                });
+            })
+        });
         row.attr("data-line", line);
         $("#lineContainer").append(row);
     }
@@ -137,6 +191,7 @@
         for(var i=0; i<data.length; i++) {
             var line = data[i];
             if(line.type != "address") continue;
+            if(line.locked) continue;
             createEntry(i, line.addr, line.ipaddr, line.comment, line.active);
         }
     })

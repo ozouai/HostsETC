@@ -14,6 +14,24 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var reg = /([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|[a-z0-9:%]+:[a-z0-9:%]+)[ 	]+([a-zA-Z0-9.\-*]+)(.+)?/;
+var lockedRecords = [
+    {
+        addr: "localhost",
+        ipaddr: "127.0.0.1"
+    },
+    {
+        addr: "localhost",
+        ipaddr: "::1"
+    },
+    {
+        addr: "localhost",
+        ipaddr: "fe80::1%lo0"
+    },
+    {
+        addr: "broadcasthost",
+        ipaddr: "255.255.255.255"
+    }
+];
 var HostFile = (function () {
     function HostFile(fileData) {
         this.lines = [];
@@ -105,6 +123,7 @@ var AddressLine = (function (_super) {
         _this.ipaddr = "127.0.0.1";
         _this.addr = "";
         _this.comment = "";
+        _this.locked = false;
         return _this;
     }
     AddressLine.prototype.toString = function () {
@@ -117,15 +136,29 @@ var AddressLine = (function (_super) {
             ipaddr: this.ipaddr,
             addr: this.addr,
             comment: this.comment,
-            compiled: this.toString()
+            compiled: this.toString(),
+            locked: this.locked
         };
     };
     AddressLine.prototype.clean = function () {
-        while (this.comment.charAt(0) == "#") {
+        while (this.comment.charAt(0) == "#" || this.comment.charAt(0) == " ") {
             this.comment = this.comment.substr(1);
+        }
+        var foundLock = false;
+        for (var _i = 0, lockedRecords_1 = lockedRecords; _i < lockedRecords_1.length; _i++) {
+            var check = lockedRecords_1[_i];
+            if (this.ipaddr == check.ipaddr && this.addr == check.addr) {
+                foundLock = true;
+                break;
+            }
+        }
+        if (foundLock) {
+            this.locked = true;
         }
     };
     AddressLine.prototype.modify = function (key, value) {
+        if (this.locked)
+            return false;
         if (key == "active") {
             if (typeof value == "string") {
                 if (value != "true" && value != "false")

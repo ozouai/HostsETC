@@ -23,7 +23,9 @@ if (passFile != null) {
 }
 var app = express();
 app.use(bodyParser.urlencoded());
-app.listen(process.env.PORT || "5002");
+app.listen(process.env.PORT || "5002", 'localhost', function () {
+    console.error("Listening");
+});
 var mainHostFile = new HostFile.HostFile(fs.readFileSync("/etc/hosts", "utf-8"));
 app.get("/", function (req, res) {
     res.json({
