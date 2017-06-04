@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>HostsETC</title>
+    <meta name="description" content="A GUI based host file editor"/>
+
+    <meta name="viewport" content="width=1000, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="dist/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="dist/css/flat-ui.css" rel="stylesheet">
+    <link href="docs/assets/css/demo.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="img/favicon.ico">
+
+    <script type="text/javascript">
+        window.nodeRequire = require;
+        delete window.require;
+        delete window.module;
+        delete window.exports;
+    </script>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+    <script src="dist/js/vendor/html5shiv.js"></script>
+    <script src="dist/js/vendor/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="dist/js/vendor/jquery.min.js"></script>
+    <script src="dist/js/flat-ui.min.js"></script>
+    <script src="docs/assets/js/application.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
+            <span class="sr-only">Toggle navigation</span>
+        </button>
+        <a class="navbar-brand" href="#">HostsETC</a>
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse-01">
+
+        <span class="btn-group navbar-right">
+            <button class="btn btn-success" disabled>All Changes Saved</button>
+        </span>
+
+    </div><!-- /.navbar-collapse -->
+</nav><!-- /navbar -->
+<div class="container" id="lineContainer">
+    <div class="row">
+        <div class="col-sm-2">
+            New Entry
+        </div>
+        <div class="col-sm-3">
+            <input placeholder="Domain" class="form-control" id="domainInput">
+        </div>
+        <div class="col-sm-3">
+            <input placeholder="127.0.0.1" class="form-control" id="ipaddrInput">
+        </div>
+        <div class="col-sm-3">
+            <input placeholder="Comment" class="form-control" id="entryCommentInput">
+        </div>
+        <div class="col-sm-1">
+            <button class="btn btn-primary" id="addEntryButton">Add</button>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-2 entryActive ">
+
+                <div class="bootstrap-switch-square">
+                    <input type="checkbox" checked data-toggle="switch" class="entryActiveSwitch" data-on-text="<span class='fui-check'></span>" data-off-text="<span class='fui-cross'></span>" />
+                </div>
+        </div>
+        <div class="col-sm-3 entryAddr">
+            yahoo.com
+        </div>
+        <div class="col-sm-3 entryIpaddr">
+            127.0.0.1
+        </div>
+        <div class="col-sm-3 entryComment">
+            # Comment
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var autoCommit = true;
+    function checkEntryInput() {
+        if($("#domainInput").val().length == 0) return $("#domainInput").focus();
+        if($("#ipaddrInput").val().length == 0) $("#ipaddrInput").val("127.0.0.1");
+        addEntryInput();
+    }
+
+    function addEntryInput() {
+        var addr = $("#domainInput").val();
+        var ipaddr = $("#ipaddrInput").val();
+        var comment = $("#entryCommentInput").val();
+        $("#domainInput").val("");
+        $("#ipaddrInput").val("");
+        $("#entryCommentInput").val("");
+        $.post("http://127.0.0.1:5002/createEntry", {addr:addr, ipaddr:ipaddr, comment:comment}, function(data) {
+            createEntry(data.line, addr, ipaddr, comment, true);
+
+        })
+    }
+
+    function createEntry(line, addr, ipaddr, comment, active) {
+        var row = createEntryRow();
+        row.find(".entryAddr").html(addr);
+        row.find(".entryIpaddr").html(ipaddr);
+        row.find(".entryComment").html("# " + comment);
+        if(active) row.find(".entryActiveSwitch").attr("checked", "checked");
+        else row.find(".entryActiveSwitch").removeAttr("checked");
+        row.find(".entryActiveSwitch").first().bootstrapSwitch();
+        row.find(".entryActiveSwitch").first().on("switchChange.bootstrapSwitch", function(ev, state) {
+            $.get("http://127.0.0.1:5002/editLine/"+line+"/active/"+state, function() {
+                if(autoCommit) {
+                    $.get("http://127.0.0.1:5002/commit");
+                }
+            });
+        })
+        row.attr("data-line", line);
+        $("#lineContainer").append(row);
+    }
+
+    function createEntryRow() {
+        return $("<div class=\"row\"><div class=\"col-sm-2 entryActive \"><div class=\"bootstrap-switch-square\"><input type=\"checkbox\" checked data-toggle=\"switch\" class=\"entryActiveSwitch\" data-on-text=\"<span class='fui-check'></span>\" data-off-text=\"<span class='fui-cross'></span>\" /></div></div><div class=\"col-sm-3 entryAddr\">yahoo.com</div><div class=\"col-sm-3 entryIpaddr\">127.0.0.1</div><div class=\"col-sm-3 entryComment\"># Comment</div></div>");
+    }
+
+    $.get("http://127.0.0.1:5002/hostsJSON", function(data) {
+        for(var i=0; i<data.length; i++) {
+            var line = data[i];
+            if(line.type != "address") continue;
+            createEntry(i, line.addr, line.ipaddr, line.comment, line.active);
+        }
+    })
+
+    $("#domainInput").on("keyup", function (ev) {
+        if(ev.keyCode == 13) checkEntryInput();
+    });
+    $("#ipaddrInput").on("keyup", function(ev) {
+        if(ev.keyCode == 13) checkEntryInput();
+    });
+    $("#entryCommentInput").on("keyup", function(ev) {
+        if(ev.keyCode == 13) checkEntryInput();
+    });
+
+
+
+</script>
+</body>
+</html>

@@ -5,6 +5,7 @@
 import * as fs from "fs";
 import * as express from "express";
 import * as HostFile from "./hostFile";
+import * as bodyParser from "body-parser";
 var passFile= null;
 var pass = "";
 process.stdout.resume();
@@ -21,6 +22,9 @@ if(passFile != null) {
 }
 
 var app = express();
+
+app.use(bodyParser.urlencoded());
+
 app.listen(process.env.PORT || "5002");
 
 
@@ -57,6 +61,35 @@ app.get("/editLine/:line/:key/:value", (req, res) => {
     } else {
         res.send("Success!");
     }
+});
+
+app.post("/createEntry", (req, res) => {
+    var line = new HostFile.AddressLine();
+    if(!line.modify("ipaddr", req.body.ipaddr)) {
+        res.status(500);
+        return res.send("Invalid");
+    }
+    if(!line.modify("addr", req.body.addr)) {
+        res.status(500);
+        return res.send("Invalid");
+    }
+    if(!line.modify("comment", req.body.comment)) {
+        res.status(500);
+        return res.send("Invalid");
+    }
+    line.modify("active", true);
+    var i = mainHostFile.addLine(line);
+    res.json({line:i});
+});
+
+app.get("/commit", (req, res) => {
+    fs.writeFile("/etc/hosts", mainHostFile.toString(), (err) => {
+        if(err) {
+            res.status(500);
+            res.send("Error Saving");
+        }
+        res.send("Success!");
+    })
 })
 
 

@@ -20,6 +20,7 @@ export class HostFile {
                 l.addr = res[2];
                 l.comment = res[3];
                 this.lines.push(l);
+                l.clean();
             } else {
                 let l = new CommentLine(this);
                 l.data = line;
@@ -27,6 +28,11 @@ export class HostFile {
                 l.clean();
             }
         }
+    }
+    public addLine(line: Line): number {
+        var i =this.lines.push(line);
+        line.parentFile = this;
+        return i-1;
     }
     public toString(): string {
         var o = "";
@@ -75,9 +81,9 @@ interface IUndoStep {
 }
 
 abstract class Line {
-    protected parentFile: HostFile;
-    constructor(pf: HostFile) {
-        this.parentFile = pf;
+    public parentFile: HostFile;
+    constructor(pf?: HostFile) {
+        if(pf) this.parentFile = pf;
     }
     public abstract toString(): string;
     public abstract toJSON(): object;
@@ -99,12 +105,21 @@ export class AddressLine extends Line {
     toJSON() {
         return {
             type: "address",
+            active: this.active,
             ipaddr: this.ipaddr,
             addr: this.addr,
             comment: this.comment,
             compiled: this.toString()
         }
     }
+
+    public clean() {
+        while(this.comment.charAt(0) == "#") {
+            this.comment = this.comment.substr(1);
+        }
+
+    }
+
     modify(key, value) {
         if(key == "active") {
             if(typeof value == "string") {
