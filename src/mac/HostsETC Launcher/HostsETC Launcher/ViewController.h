@@ -12,6 +12,6 @@
     
 }
 - (IBAction) exitClicked:(id)sender;
-
+- (IBAction) closeClicked:(id)sender;
 @end
 

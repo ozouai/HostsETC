@@ -26,5 +26,8 @@
 -(IBAction)exitClicked:(id)sender {
     [NSApp performSelector:@selector(terminate:) withObject:nil afterDelay:0.0];
 }
+-(IBAction)closeClicked:(id)sender {
+    [self.view.window close];
+}
 
 @end

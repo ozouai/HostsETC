@@ -33,23 +33,21 @@
     <script src="dist/js/flat-ui.min.js"></script>
     <script src="docs/assets/js/application.js"></script>
 </head>
-<body>
-<nav class="navbar navbar-inverse navbar-embossed" role="navigation">
+<body  style="background-color:#d4d4d4;">
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation" style="border-top-right-radius: 0px; border-top-left-radius: 0px;">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
             <span class="sr-only">Toggle navigation</span>
         </button>
         <a class="navbar-brand" href="#">HostsETC</a>
     </div>
-    <div class="collapse navbar-collapse" id="navbar-collapse-01">
-
-        <span class="btn-group navbar-right">
-            <button class="btn btn-success" disabled>All Changes Saved</button>
-        </span>
-
-    </div><!-- /.navbar-collapse -->
+    <div class="navbar-right navbar-form">
+        <div class="bootstrap-switch-square text-primary">
+            Autocommit: <input type="checkbox" checked data-toggle="switch" id="autoCommitSwitch" data-on-text="<span class='fui-check'></span>" data-off-text="<span class='fui-cross'></span>" />
+        </div>
+    </div>
 </nav><!-- /navbar -->
-<div class="container" id="lineContainer">
+<div class="container" id="lineContainer"  style="background-color:#f3f3f3; padding-top:15px; padding-bottom:50px; border-radius:7px;">
     <div class="row">
         <div class="col-sm-2">
             New Entry
@@ -67,7 +65,7 @@
             <button class="btn btn-primary" id="addEntryButton">Add</button>
         </div>
     </div>
-    <hr>
+    <hr style="border-color:#8f8f8f;">
     <!--
     <div class="row">
         <div class="col-sm-2 entryActive ">
@@ -111,6 +109,10 @@
         })
     }
 
+    $("#autoCommitSwitch").on("switchChange.bootstrapSwitch", function(ev, state) {
+        autoCommit = state;
+    })
+
     function createEntry(line, addr, ipaddr, comment, active) {
         var row = createEntryRow();
         row.find(".entryAddr").html(addr);
@@ -142,6 +144,13 @@
                 });
             })
         });
+        row.find(".entryAddr").on("keydown", function(e) {
+            if(!addrEditing)return;
+            if(e.keyCode == 13) {
+                e.preventDefault();
+                $(this).blur();
+            }
+        })
         var ipaddrEditing = false;
         row.find(".entryIpaddr").on("dblclick", function() {
             if(ipaddrEditing) return;
@@ -158,13 +167,20 @@
                 });
             })
         });
+        row.find(".entryIpaddr").on("keydown", function(e) {
+            if(!ipaddrEditing)return;
+            if(e.keyCode == 13) {
+                e.preventDefault();
+                $(this).blur();
+            }
+        })
         var commentEditing = false;
         row.find(".entryComment").on("dblclick", function() {
             if(commentEditing) return;
             commentEditing = true;
             var $t = $(this);
-            $t.focus();
             $(this).attr("contenteditable", true);
+            $t.focus();
             while($(this).html().charAt(0) == "#" || $(this).html().charAt(0) == " ") {
                 $(this).html($(this).html().substr(1));
             }
@@ -179,6 +195,13 @@
                 });
             })
         });
+        row.find(".entryComment").on("keydown", function(e) {
+            if(!commentEditing)return;
+            if(e.keyCode == 13) {
+                e.preventDefault();
+                $(this).blur();
+            }
+        })
         row.attr("data-line", line);
         $("#lineContainer").append(row);
     }

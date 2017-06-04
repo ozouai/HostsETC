@@ -24,3 +24,4 @@ You can use HostsETC to quickly make changes to your hosts file, perfect for mic
 * Server-side Undo support
 * Windows Launcher
 * Linux Launcher
+* Remote Editing!

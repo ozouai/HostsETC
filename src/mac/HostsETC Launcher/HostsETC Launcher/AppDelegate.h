@@ -7,9 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "MenuController.h"
 @interface AppDelegate : NSObject <NSApplicationDelegate>
-
-
+@property (strong, nonatomic) NSStatusItem *statusItem;
+@property (strong, nonatomic) NSMenu *statusMenu;
+@property (assign, nonatomic) BOOL darkModeOn;
+@property (strong, nonatomic) NSWindowController *windowController;
 @end
 
