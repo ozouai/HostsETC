@@ -1,0 +1,22 @@
+{
+  "name": "hosts-etc",
+  "version": "1.0.0",
+  "description": "A GUI for editing your hosts file to help with local development",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ozouai/HostsETC.git"
+  },
+  "author": "omar@omarzouai.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ozouai/HostsETC/issues"
+  },
+  "homepage": "https://github.com/ozouai/HostsETC#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
+}
