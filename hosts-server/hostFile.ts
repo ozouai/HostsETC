@@ -26,7 +26,7 @@ var lockedRecords = [
 var restrictedDomains: Array<string> = null;
 for(var arg of process.argv) {
     if(arg == "-restricted") {
-        restrictedDomains = fs.readFileSync(__dirname+"/restrictedDomains.txt", "utf-8").split("\n");
+        restrictedDomains = fs.readFileSync(__dirname+"/assets/restrictedDomains.txt", "utf-8").split("\n");
         break;
     }
 }

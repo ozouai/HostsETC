@@ -72,6 +72,7 @@
 		078D94AB1EE38B300014C1B6 /* HostsETC Launcher */ = {
 			isa = PBXGroup;
 			children = (
+				078D94D41EE502DB0014C1B6 /* executables */,
 				078D94C91EE4DC9A0014C1B6 /* statusBar.pdf */,
 				078D94C71EE4DA6A0014C1B6 /* statusBar.png */,
 				078D94CB1EE4E2A10014C1B6 /* status.tiff */,
@@ -99,6 +100,13 @@
 				078D94B01EE38B300014C1B6 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		078D94D41EE502DB0014C1B6 /* executables */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = executables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -132,7 +140,6 @@
 				TargetAttributes = {
 					078D94A81EE38B300014C1B6 = {
 						CreatedOnToolsVersion = 8.3.2;
-						DevelopmentTeam = TE39Z3ZF4A;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -292,9 +299,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = TE39Z3ZF4A;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "HostsETC Launcher/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.omarzouai.HostsETC-Launcher";
@@ -307,9 +314,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = TE39Z3ZF4A;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "HostsETC Launcher/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.omarzouai.HostsETC-Launcher";

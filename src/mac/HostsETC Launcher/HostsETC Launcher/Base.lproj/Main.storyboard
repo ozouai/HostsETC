@@ -727,7 +727,7 @@
                             <textField verticalHuggingPriority="750" fixedFrame="YES" allowsCharacterPickerTouchBarItem="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rX-5C-BQC">
                                 <rect key="frame" x="129" y="215" width="96" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="localhost" drawsBackground="YES" id="v86-7T-Qrb">
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="localhost" drawsBackground="YES" id="v86-7T-Qrb">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -778,6 +778,8 @@
                         </subviews>
                     </view>
                     <connections>
+                        <outlet property="addressField" destination="7rX-5C-BQC" id="86u-fX-kgo"/>
+                        <outlet property="portField" destination="dwH-KU-w10" id="Kjl-TC-c5R"/>
                         <outlet property="restrictHosts" destination="gH8-VN-Qnl" id="zFV-wZ-5Ye"/>
                         <outlet property="serverButton" destination="YC1-d0-oob" id="yla-Nl-qpG"/>
                     </connections>

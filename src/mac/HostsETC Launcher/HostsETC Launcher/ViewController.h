@@ -8,13 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 #import "ServerManager.h"
-@interface ViewController : NSViewController {
+@interface ViewController : NSViewController <NSTextFieldDelegate> {
     IBOutlet NSButton *restrictHosts;
     IBOutlet NSButton *serverButton;
+    IBOutlet NSTextField *portField;
+    IBOutlet NSTextField *addressField;
 }
 - (IBAction) exitClicked:(id)sender;
 - (IBAction) closeClicked:(id)sender;
+- (IBAction) checkPipe:(id)sender;
 - (IBAction) restrictHostsChanged:(NSButton*)sender;
 - (IBAction) serverButtonClicked:(NSButton*)sender;
+- (void)controlTextDidChange:(NSNotification *)notification;
+
 @end
 

@@ -1,0 +1,14 @@
+{
+  "name": "HostsETC",
+  "version": "1.0.0",
+  "description": "The GUI for HostsETC",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "omar@omarzouai.com",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.6.10"
+  }
+}

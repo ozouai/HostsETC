@@ -9,9 +9,17 @@ import * as bodyParser from "body-parser";
 var passFile= null;
 var pass = "";
 process.stdout.resume();
+var port = process.env.PORT || "5002";
+var listen = process.env.LISTEN || "localhost";
 for(var arg of process.argv) {
     if(arg.indexOf("-passFile") != -1) {
         passFile = arg.substr("-passFile:".length);
+    }
+    if(arg.indexOf("-port") != -1) {
+        port = arg.substr("-port:".length);
+    }
+    if(arg.indexOf("-listen") != -1) {
+        listen = arg.substr("-listen:".length);
     }
 }
 
@@ -24,8 +32,8 @@ if(passFile != null) {
 var app = express();
 
 app.use(bodyParser.urlencoded());
-
-app.listen(process.env.PORT || "5002", 'localhost', function() {
+console.error("Listening on '"+listen+":"+port+"'");
+app.listen(port, listen, function() {
     console.error("Listening");
 });
 

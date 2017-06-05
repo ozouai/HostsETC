@@ -37,7 +37,7 @@ var restrictedDomains = null;
 for (var _i = 0, _a = process.argv; _i < _a.length; _i++) {
     var arg = _a[_i];
     if (arg == "-restricted") {
-        restrictedDomains = fs.readFileSync(__dirname + "/restrictedDomains.txt", "utf-8").split("\n");
+        restrictedDomains = fs.readFileSync(__dirname + "/assets/restrictedDomains.txt", "utf-8").split("\n");
         break;
     }
 }

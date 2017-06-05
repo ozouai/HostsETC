@@ -47,7 +47,6 @@
 }
 
 -(void) configClicked:(id)sender {
-    NSLog(@"Hello");
     NSStoryboard *storyboard = [NSStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
     
     NSWindowController *vc = [storyboard instantiateInitialController];
