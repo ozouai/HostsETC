@@ -64,12 +64,12 @@ var HostFile = (function () {
         return i - 1;
     };
     HostFile.prototype.toString = function () {
-        var o = "";
+        var o = [];
         for (var _i = 0, _a = this.lines; _i < _a.length; _i++) {
             var l = _a[_i];
-            o += l.toString() + "\n";
+            o.push(l.toString());
         }
-        return o;
+        return o.join("\n");
     };
     HostFile.prototype.toJSON = function () {
         var o = [];

@@ -32,9 +32,21 @@
     <script src="dist/js/vendor/jquery.min.js"></script>
     <script src="dist/js/flat-ui.min.js"></script>
     <script src="docs/assets/js/application.js"></script>
+    <style>
+        .bootstrap-switch-square.autoCommitSwitchContainer > .bootstrap-switch {
+            border: 1px solid #222;
+        }
+        .row.inverse {
+            background-color:#e0e0e0;
+        }
+        .entryRow {
+            padding-top:5px;
+            padding-bottom:5px;
+        }
+    </style>
 </head>
 <body  style="background-color:#d4d4d4;">
-<nav class="navbar navbar-inverse navbar-embossed" role="navigation" style="border-top-right-radius: 0px; border-top-left-radius: 0px;">
+<nav class="navbar navbar-inverse navbar-embossed" role="navigation" style="border-radius:0px;">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
             <span class="sr-only">Toggle navigation</span>
@@ -42,8 +54,8 @@
         <a class="navbar-brand" href="#">HostsETC</a>
     </div>
     <div class="navbar-right navbar-form">
-        <div class="bootstrap-switch-square text-primary">
-            Autocommit: <input type="checkbox" checked data-toggle="switch" id="autoCommitSwitch" data-on-text="<span class='fui-check'></span>" data-off-text="<span class='fui-cross'></span>" />
+        <div class="bootstrap-switch-square autoCommitSwitchContainer text-primary">
+            Autocommit: &nbsp;&nbsp;&nbsp;<input type="checkbox" checked data-toggle="switch" id="autoCommitSwitch" data-on-text="<span class='fui-check'></span>" data-off-text="<span class='fui-cross'></span>" />
         </div>
     </div>
 </nav><!-- /navbar -->
@@ -113,8 +125,11 @@
         autoCommit = state;
     })
 
+    var altRow = false;
     function createEntry(line, addr, ipaddr, comment, active) {
         var row = createEntryRow();
+        if(altRow) $(row).addClass("inverse");
+        altRow = !altRow;
         row.find(".entryAddr").html(addr);
         row.find(".entryIpaddr").html(ipaddr);
         row.find(".entryComment").html("# " + comment);
@@ -207,7 +222,7 @@
     }
 
     function createEntryRow() {
-        return $("<div class=\"row\"><div class=\"col-sm-2 entryActive \"><div class=\"bootstrap-switch-square\"><input type=\"checkbox\" checked data-toggle=\"switch\" class=\"entryActiveSwitch\" data-on-text=\"<span class='fui-check'></span>\" data-off-text=\"<span class='fui-cross'></span>\" /></div></div><div class=\"col-sm-3 entryAddr\">yahoo.com</div><div class=\"col-sm-3 entryIpaddr\">127.0.0.1</div><div class=\"col-sm-3 entryComment\"># Comment</div></div>");
+        return $("<div class=\"row entryRow\"><div class=\"col-sm-2 entryActive \"><div class=\"bootstrap-switch-square\"><input type=\"checkbox\" checked data-toggle=\"switch\" class=\"entryActiveSwitch\" data-on-text=\"<span class='fui-check'></span>\" data-off-text=\"<span class='fui-cross'></span>\" /></div></div><div class=\"col-sm-3 entryAddr\">yahoo.com</div><div class=\"col-sm-3 entryIpaddr\">127.0.0.1</div><div class=\"col-sm-3 entryComment\"># Comment</div></div>");
     }
 
     $.get("http://127.0.0.1:5002/hostsJSON", function(data) {

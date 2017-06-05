@@ -53,11 +53,11 @@ export class HostFile {
         return i-1;
     }
     public toString(): string {
-        var o = "";
+        var o = [];
         for(var l of this.lines) {
-            o+=l.toString()+"\n";
+            o.push(l.toString());
         }
-        return o;
+        return o.join("\n");
     }
     public toJSON() {
         var o = [];

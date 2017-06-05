@@ -17,8 +17,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
     self.statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
-    _statusItem.image = [NSImage imageNamed:@"switchIcon.png"];
-    [_statusItem.image setTemplate:YES];
+    _statusItem.image = [NSImage imageNamed:@"statusItem.tiff"];
+    [_statusItem.image setTemplate:NO];
     
     _statusMenu = [[NSMenu alloc] initWithTitle:@"HostsETC"];
     [_statusMenu addItem:[[NSMenuItem alloc] initWithTitle:@"HostsETC" action:nil keyEquivalent:@""]];
