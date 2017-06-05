@@ -1,7 +1,4 @@
 "use strict";
-/**
- * Created by omar on 6/3/17.
- */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -13,6 +10,10 @@ var __extends = (this && this.__extends) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Created by omar on 6/3/17.
+ */
+var fs = require("fs");
 var reg = /([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|[a-z0-9:%]+:[a-z0-9:%]+)[ 	]+([a-zA-Z0-9.\-*]+)(.+)?/;
 var lockedRecords = [
     {
@@ -32,6 +33,21 @@ var lockedRecords = [
         ipaddr: "255.255.255.255"
     }
 ];
+var restrictedDomains = null;
+for (var _i = 0, _a = process.argv; _i < _a.length; _i++) {
+    var arg = _a[_i];
+    if (arg == "-restricted") {
+        restrictedDomains = fs.readFileSync(__dirname + "/restrictedDomains.txt", "utf-8").split("\n");
+        break;
+    }
+}
+function getRestrictedDomains() {
+    if (restrictedDomains)
+        return [].concat(restrictedDomains.slice(0));
+    else
+        return [];
+}
+exports.getRestrictedDomains = getRestrictedDomains;
 var HostFile = (function () {
     function HostFile(fileData) {
         this.lines = [];
@@ -159,6 +175,9 @@ var AddressLine = (function (_super) {
     AddressLine.prototype.modify = function (key, value) {
         if (this.locked)
             return false;
+        if (typeof value == "string") {
+            value = value.trim();
+        }
         if (key == "active") {
             if (typeof value == "string") {
                 if (value != "true" && value != "false")
@@ -180,6 +199,11 @@ var AddressLine = (function (_super) {
         if (key == "addr") {
             if (typeof value != "string")
                 return false;
+            if (restrictedDomains) {
+                if (restrictedDomains.indexOf(value) != -1) {
+                    return false; // Check to see if the change is restricted
+                }
+            }
             // TODO add regex for this
             this.addr = value;
             return true;

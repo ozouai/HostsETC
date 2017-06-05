@@ -55,6 +55,9 @@ app.get("/editLine/:line/:key/:value", function (req, res) {
         res.send("Success!");
     }
 });
+app.get("/restrictedHosts", function (req, res) {
+    res.json(HostFile.getRestrictedDomains());
+});
 app.post("/createEntry", function (req, res) {
     var line = new HostFile.AddressLine();
     if (!line.modify("ipaddr", req.body.ipaddr)) {

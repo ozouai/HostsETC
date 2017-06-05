@@ -18,6 +18,7 @@
 		078D94CA1EE4DC9A0014C1B6 /* statusBar.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 078D94C91EE4DC9A0014C1B6 /* statusBar.pdf */; };
 		078D94CC1EE4E2A10014C1B6 /* status.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 078D94CB1EE4E2A10014C1B6 /* status.tiff */; };
 		078D94D01EE4E3690014C1B6 /* statusItem.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 078D94CF1EE4E3690014C1B6 /* statusItem.tiff */; };
+		078D94D31EE4F00F0014C1B6 /* ServerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D94D21EE4F00F0014C1B6 /* ServerManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +38,8 @@
 		078D94C91EE4DC9A0014C1B6 /* statusBar.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = statusBar.pdf; sourceTree = "<group>"; };
 		078D94CB1EE4E2A10014C1B6 /* status.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = status.tiff; sourceTree = "<group>"; };
 		078D94CF1EE4E3690014C1B6 /* statusItem.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = statusItem.tiff; sourceTree = "<group>"; };
+		078D94D11EE4F00F0014C1B6 /* ServerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerManager.h; sourceTree = "<group>"; };
+		078D94D21EE4F00F0014C1B6 /* ServerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +87,8 @@
 				078D94C01EE4A1AD0014C1B6 /* MenuController.h */,
 				078D94C11EE4A1AD0014C1B6 /* MenuController.m */,
 				078D94C31EE4A20E0014C1B6 /* MainMenu.xib */,
+				078D94D11EE4F00F0014C1B6 /* ServerManager.h */,
+				078D94D21EE4F00F0014C1B6 /* ServerManager.m */,
 			);
 			path = "HostsETC Launcher";
 			sourceTree = "<group>";
@@ -172,6 +177,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				078D94D31EE4F00F0014C1B6 /* ServerManager.m in Sources */,
 				078D94C21EE4A1AD0014C1B6 /* MenuController.m in Sources */,
 				078D94B41EE38B300014C1B6 /* ViewController.m in Sources */,
 				078D94B11EE38B300014C1B6 /* main.m in Sources */,

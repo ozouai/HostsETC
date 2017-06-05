@@ -1,0 +1,9 @@
+google.com
+www.google.com
+facebook.com
+www.facebook.com
+m.facebook.com
+account.google.com
+myaccount.google.com
+youtube.com
+www.youtube.com

@@ -78,6 +78,9 @@
         </div>
     </div>
     <hr style="border-color:#8f8f8f;">
+    <div id="entryContainer">
+
+    </div>
     <!--
     <div class="row">
         <div class="col-sm-2 entryActive ">
@@ -218,7 +221,7 @@
             }
         })
         row.attr("data-line", line);
-        $("#lineContainer").append(row);
+        $("#entryContainer").prepend(row);
     }
 
     function createEntryRow() {

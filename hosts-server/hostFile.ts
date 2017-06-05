@@ -1,7 +1,7 @@
 /**
  * Created by omar on 6/3/17.
  */
-
+import * as fs from "fs";
 var reg = /([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|[a-z0-9:%]+:[a-z0-9:%]+)[ 	]+([a-zA-Z0-9.\-*]+)(.+)?/;
 
 var lockedRecords = [
@@ -22,6 +22,19 @@ var lockedRecords = [
         ipaddr: "255.255.255.255"
     }
 ]
+
+var restrictedDomains: Array<string> = null;
+for(var arg of process.argv) {
+    if(arg == "-restricted") {
+        restrictedDomains = fs.readFileSync(__dirname+"/restrictedDomains.txt", "utf-8").split("\n");
+        break;
+    }
+}
+
+export function getRestrictedDomains() : Array<string> {
+    if(restrictedDomains) return [].concat(restrictedDomains.slice(0));
+    else return [];
+}
 
 export class HostFile {
     public lines: Array<Line> = [];
@@ -150,6 +163,9 @@ export class AddressLine extends Line {
 
     modify(key, value) {
         if(this.locked) return false;
+        if(typeof value == "string") {
+            value = value.trim();
+        }
         if(key == "active") {
             if(typeof value == "string") {
                 if(value != "true" && value != "false") return false;
@@ -167,7 +183,15 @@ export class AddressLine extends Line {
         }
         if(key == "addr") {
             if(typeof value != "string") return false;
+
+            if(restrictedDomains) {
+                if(restrictedDomains.indexOf(value) != -1) {
+                    return false; // Check to see if the change is restricted
+                }
+            }
+
             // TODO add regex for this
+
             this.addr = value;
             return true;
         }

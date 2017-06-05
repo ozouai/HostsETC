@@ -12,7 +12,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+    [restrictHosts setState:([ServerManager getInstance]->restrictHosts ? NSOnState : NSOffState)];
     // Do any additional setup after loading the view.
 }
 
@@ -28,6 +28,19 @@
 }
 -(IBAction)closeClicked:(id)sender {
     [self.view.window close];
+}
+-(IBAction)restrictHostsChanged:(NSButton *)sender {
+    if([sender state] == NSOnState) [ServerManager getInstance]->restrictHosts = YES;
+    else [ServerManager getInstance]->restrictHosts = NO;
+}
+-(IBAction)serverButtonClicked:(NSButton *)sender {
+    if([[ServerManager getInstance] isRunning]) {
+        [serverButton setTitle:@"Start Server"];
+        [[ServerManager getInstance] terminateServer];
+    } else {
+        [serverButton setTitle:@"Stop Server"];
+        [[ServerManager getInstance] launchServer];
+    }
 }
 
 @end

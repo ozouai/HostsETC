@@ -7,11 +7,14 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+#import "ServerManager.h"
 @interface ViewController : NSViewController {
-    
+    IBOutlet NSButton *restrictHosts;
+    IBOutlet NSButton *serverButton;
 }
 - (IBAction) exitClicked:(id)sender;
 - (IBAction) closeClicked:(id)sender;
+- (IBAction) restrictHostsChanged:(NSButton*)sender;
+- (IBAction) serverButtonClicked:(NSButton*)sender;
 @end
 
