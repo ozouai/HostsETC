@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		077D3BD61EECF9C200476D42 /* server in Resources */ = {isa = PBXBuildFile; fileRef = 077D3BD51EECF9C200476D42 /* server */; };
+		077D3BD81EECFA5D00476D42 /* HostsETC.app in Resources */ = {isa = PBXBuildFile; fileRef = 077D3BD71EECFA5D00476D42 /* HostsETC.app */; };
 		078D94AE1EE38B300014C1B6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D94AD1EE38B300014C1B6 /* AppDelegate.m */; };
 		078D94B11EE38B300014C1B6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D94B01EE38B300014C1B6 /* main.m */; };
 		078D94B41EE38B300014C1B6 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 078D94B31EE38B300014C1B6 /* ViewController.m */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		077D3BD51EECF9C200476D42 /* server */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = server; sourceTree = "<group>"; };
+		077D3BD71EECFA5D00476D42 /* HostsETC.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; path = HostsETC.app; sourceTree = "<group>"; };
 		078D94A91EE38B300014C1B6 /* HostsETC Launcher.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HostsETC Launcher.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		078D94AC1EE38B300014C1B6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		078D94AD1EE38B300014C1B6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 		078D94D41EE502DB0014C1B6 /* executables */ = {
 			isa = PBXGroup;
 			children = (
+				077D3BD51EECF9C200476D42 /* server */,
+				077D3BD71EECFA5D00476D42 /* HostsETC.app */,
 			);
 			name = executables;
 			sourceTree = "<group>";
@@ -168,10 +174,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				078D94B61EE38B300014C1B6 /* Assets.xcassets in Resources */,
+				077D3BD81EECFA5D00476D42 /* HostsETC.app in Resources */,
 				078D94CA1EE4DC9A0014C1B6 /* statusBar.pdf in Resources */,
 				078D94D01EE4E3690014C1B6 /* statusItem.tiff in Resources */,
 				078D94CC1EE4E2A10014C1B6 /* status.tiff in Resources */,
 				078D94B91EE38B300014C1B6 /* Main.storyboard in Resources */,
+				077D3BD61EECF9C200476D42 /* server in Resources */,
 				078D94C41EE4A20E0014C1B6 /* MainMenu.xib in Resources */,
 				078D94C81EE4DA6A0014C1B6 /* statusBar.png in Resources */,
 			);
@@ -344,6 +352,7 @@
 				078D94BF1EE38B300014C1B6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

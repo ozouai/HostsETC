@@ -1,6 +1,6 @@
 node_modules/
 typings/
-
+.DS_Store
 ### Xcode template
 # Xcode
 #
