@@ -75,7 +75,7 @@ app.get("/editLine/:line/:key/:value", (req, res) => {
 
 app.get("/restrictedHosts", (req, res) => {
     res.json(HostFile.getRestrictedDomains());
-})
+});
 
 app.post("/createEntry", (req, res) => {
     var line = new HostFile.AddressLine();
@@ -104,7 +104,7 @@ app.get("/commit", (req, res) => {
         }
         res.send("Success!");
     })
-})
+});
 
 
 

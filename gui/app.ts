@@ -24,7 +24,7 @@ function createWindow () {
         protocol: 'file:',
         slashes: true
     }))
-
+    //win.openDevTools();
     // Emitted when the window is closed.
     win.on('closed', () => {
         // Dereference the window object, usually you would store windows
